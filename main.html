@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Омардың сүндет тойы</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Arabic', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #f9f5e9;
+            color: #333;
+        }
+
+        /* Казахский орнамент на фоне */
+        .kazakh-pattern {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,50 Q50,20 80,50 Q50,80 20,50 Z" fill="%233d2b1e"/></svg>'),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><path d="M60,0 L80,40 L120,60 L80,80 L60,120 L40,80 L0,60 L40,40 Z" fill="%233d2b1e" opacity="0.7"/></svg>'),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,0 C60,20 80,20 100,10 L90,30 C70,40 70,60 80,80 L60,70 C40,70 30,90 10,90 L20,60 C10,50 20,30 0,20 Z" fill="%233d2b1e"/></svg>');
+            background-size: 150px 150px, 200px 200px, 120px 120px;
+            background-position: 0 0, 100px 100px, 50px 50px;
+            z-index: -1;
+            animation: patternMove 60s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { background-position: 0 0, 100px 100px, 50px 50px; }
+            100% { background-position: 150px 150px, 300px 300px, 170px 170px; }
+        }
+
+        /* Стиль для шанырака */
+        .shanyrak-decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 448c-105.9 0-192-86.1-192-192S150.1 64 256 64s192 86.1 192 192-86.1 192-192 192zm96-320l-96 96-96-96-32 32 96 96-96 96 32 32 96-96 96 96 32-32-96-96 96-96-32-32z" fill="%233d2b1e"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Навигация */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(249, 245, 233, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(61, 43, 30, 0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #3d2b1e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo::before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-image: url(images/1676676316_grizly-club-p-orel-klipart-risunok-3.png);
+            background-size: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #3d2b1e;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Noto Sans Arabic', sans-serif;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #8b5a2b;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #3d2b1e;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Приветственная секция */
+        .welcome {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            background-color: rgba(249, 245, 233, 0.7);
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+            border-top: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            padding: 5rem 3rem;
+            margin: 0 auto;
+            max-width: 900px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, #8b5a2b, #a67c52, #8b5a2b);
+        }
+
+        .welcome h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: #3d2b1e;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .welcome h2::before, .welcome h2::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background: #8b5a2b;
+        }
+
+        .welcome h2::before {
+            left: -70px;
+        }
+
+        .welcome h2::after {
+            right: -70px;
+        }
+
+        .welcome-text {
+            color: #3d2b1e;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-ornament {
+            width: 80px;
+            height: 80px;
+            margin: 2rem auto;
+            background-image: url(images/1676676316_grizly-club-p-orel-klipart-risunok-3.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Герой секция */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem;
+            background: linear-gradient(rgba(249, 245, 233, 0.9), rgba(249, 245, 233, 0.9)), 
+                        url();
+            background-size: 170px 170px;
+            position: relative;
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background-image: url(images/pngtree-kazakh-ornamnet-png-image_11885940.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        .ornament {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 3rem;
+            background-image: url(images/pngtree-kazakh-ornamnet-png-image_11885940.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 10vw, 6rem);
+            font-weight: 700;
+            color: #3d2b1e;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: #8b5a2b;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            font-family: 'Noto Sans Arabic', sans-serif;
+        }
+
+        .family-name {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #3d2b1e;
+            margin-bottom: 1rem;
+            font-style: italic;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Секция приглашения */
+        .invitation {
+            padding: 8rem 2rem;
+            text-align: center;
+            background-color: rgba(249, 245, 233, 0.7);
+            position: relative;
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .invitation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 65%, rgba(61, 43, 30, 0.05) 65%, rgba(61, 43, 30, 0.05) 70%, transparent 70%),
+                linear-gradient(-45deg, transparent 65%, rgba(61, 43, 30, 0.05) 65%, rgba(61, 43, 30, 0.05) 70%, transparent 70%);
+            background-size: 50px 50px;
+        }
+
+        .invitation-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            padding: 5rem 3rem;
+            margin: 0 auto;
+            max-width: 900px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .invitation-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, #8b5a2b, #a67c52, #8b5a2b);
+        }
+
+        .invitation h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: #3d2b1e;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .invitation h2::before, .invitation h2::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 50px;
+            height: 2px;
+            background: #8b5a2b;
+        }
+
+        .invitation h2::before {
+            left: -70px;
+        }
+
+        .invitation h2::after {
+            right: -70px;
+        }
+
+        .invitation-text {
+            color: #3d2b1e;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .invitation-ornament {
+            width: 60px;
+            height: 60px;
+            margin: 2rem auto;
+            background-image: url(images/1676676316_grizly-club-p-orel-klipart-risunok-3.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        /* Секция о семье */
+        .groom {
+            padding: 8rem 2rem;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.85);
+            position: relative;
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .groom::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 448c-105.9 0-192-86.1-192-192S150.1 64 256 64s192 86.1 192 192-86.1 192-192 192zm96-320l-96 96-96-96-32 32 96 96-96 96 32 32 96-96 96 96 32-32-96-96 96-96-32-32z" fill="%233d2b1e" opacity="0.1"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        .groom-card {
+            background: rgba(249, 245, 233, 0.7);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            padding: 5rem 3rem;
+            margin: 0 auto;
+            max-width: 700px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .groom h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: #3d2b1e;
+            margin-bottom: 1rem;
+        }
+
+        .groom p {
+            color: #3d2b1e;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Секция обратного отсчета */
+        .countdown {
+            padding: 8rem 2rem;
+            text-align: center;
+            background-color: rgba(249, 245, 233, 0.7);
+            position: relative;
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .countdown::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(61, 43, 30, 0.05) 50px, rgba(61, 43, 30, 0.05) 100px);
+        }
+
+        .countdown h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: #3d2b1e;
+            margin-bottom: 4rem;
+        }
+
+        .timer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .time-unit {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .time-unit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: #8b5a2b;
+        }
+
+        .time-number {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: #3d2b1e;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .time-label {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: #3d2b1e;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Секция деталей */
+        .details {
+            padding: 8rem 2rem;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .details h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: #3d2b1e;
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 0 auto 5rem;
+        }
+
+        .detail-card {
+            background: rgba(249, 245, 233, 0.7);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .detail-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+            border-color: rgba(61, 43, 30, 0.4);
+        }
+
+        .detail-icon {
+            width: 80px;
+            height: 80px;
+            background: #8b5a2b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(61, 43, 30, 0.3);
+        }
+
+        .detail-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: #3d2b1e;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-card p {
+            color: #3d2b1e;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 1.8;
+        }
+
+        /* Секция карты */
+        .map-section {
+            padding: 8rem 2rem;
+            text-align: center;
+            background-color: rgba(249, 245, 233, 0.7);
+            position: relative;
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .map-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: #3d2b1e;
+            margin-bottom: 4rem;
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .map-info {
+            color: #3d2b1e;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Галерея */
+        .gallery {
+            padding: 8rem 2rem;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.85);
+            position: relative;
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .gallery::before {
+            content: '';
+            position: absolute;
+            bottom: 20%;
+            right: 10%;
+            width: 100px;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 448c-105.9 0-192-86.1-192-192S150.1 64 256 64s192 86.1 192 192-86.1 192-192 192zm96-320l-96 96-96-96-32 32 96 96-96 96 32 32 96-96 96 96 32-32-96-96 96-96-32-32z" fill="%233d2b1e" opacity="0.1"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        .gallery h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: #3d2b1e;
+            margin-bottom: 5rem;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .photo-card {
+            background: rgba(249, 245, 233, 0.7);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-color: rgba(61, 43, 30, 0.4);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Секция RSVP */
+        .rsvp {
+            padding: 8rem 2rem;
+            text-align: center;
+            background-color: rgba(249, 245, 233, 0.7);
+            position: relative;
+            border-bottom: 1px solid rgba(61, 43, 30, 0.1);
+        }
+
+        .rsvp::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 65%, rgba(61, 43, 30, 0.05) 65%, rgba(61, 43, 30, 0.05) 70%, transparent 70%),
+                linear-gradient(-45deg, transparent 65%, rgba(61, 43, 30, 0.05) 65%, rgba(61, 43, 30, 0.05) 70%, transparent 70%);
+            background-size: 50px 50px;
+        }
+
+        .rsvp h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: #3d2b1e;
+            margin-bottom: 3rem;
+        }
+
+        .rsvp-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            padding: 4rem 3rem;
+            margin: 0 auto;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .rsvp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #8b5a2b, #a67c52, #8b5a2b);
+        }
+
+        .rsvp-text {
+            color: #3d2b1e;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            line-height: 1.8;
+            margin-bottom: 4rem;
+        }
+
+        .rsvp-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: #8b5a2b;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: rgba(249, 245, 233, 0.7);
+            border: 1px solid rgba(61, 43, 30, 0.2);
+            border-radius: 10px;
+            color: #3d2b1e;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #8b5a2b;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: #3d2b1e;
+            opacity: 0.7;
+        }
+
+        .radio-group {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .radio-option input {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #8b5a2b;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .radio-option input:checked::after {
+             content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 10px;
+        height: 10px;
+        background: #8b5a2b;
+        border-radius: 50%;
+    }
+
+    .radio-option label {
+        cursor: pointer;
+        margin-bottom: 0;
+        color: #3d2b1e;
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, #8b5a2b, #a67c52);
+        color: white;
+        border: none;
+        padding: 1.5rem 3rem;
+        border-radius: 50px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(139, 90, 43, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: 'Noto Sans Arabic', sans-serif;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(139, 90, 43, 0.4);
+    }
+
+    /* Футер */
+    .footer {
+        background: #3d2b1e;
+        color: #f9f5e9;
+        text-align: center;
+        padding: 4rem 2rem 2rem;
+        position: relative;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #8b5a2b, #a67c52, #8b5a2b);
+    }
+
+    .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .footer h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        color: #f9f5e9;
+        margin-bottom: 2rem;
+    }
+
+    .footer p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+    }
+
+    .footer-ornament {
+        width: 50px;
+        height: 50px;
+        margin: 2rem auto 1rem;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,0 C60,20 80,20 100,10 L90,30 C70,40 70,60 80,80 L60,70 C40,70 30,90 10,90 L20,60 C10,50 20,30 0,20 Z" fill="%23f9f5e9"/></svg>');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    .footer-copyright {
+        opacity: 0.7;
+        font-size: 0.9rem;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(249, 245, 233, 0.2);
+    }
+
+    /* Дополнительные казахские элементы */
+    .section-divider {
+        position: relative;
+        height: 100px;
+        background: #f9f5e9;
+        overflow: hidden;
+    }
+
+    .section-divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #8b5a2b, transparent);
+    }
+
+    .section-divider::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background-image: url(images/pngtree-kazakh-ornamnet-png-image_11885940.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    /* Мобильная адаптация */
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+
+        .mobile-menu-toggle {
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+        }
+
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .timer {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .radio-group {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .welcome h2::before, .welcome h2::after,
+        .invitation h2::before, .invitation h2::after {
+            display: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .welcome, .invitation, .groom, .countdown, .details, .rsvp {
+            padding: 4rem 1rem;
+        }
+
+        .nav-container {
+            padding: 1rem;
+        }
+
+        .hero {
+            padding: 6rem 1rem;
+        }
+    }
+</style>
+</head> <body> <div class="kazakh-pattern"></div>
+
+    <!-- Навигация -->
+<nav class="nav">
+    <div class="nav-container">
+        <a href="#home" class="nav-logo">Омардың сүндет тойы</a>
+        <ul class="nav-links">
+            <li><a href="#home">Басты бет</a></li>
+            <li><a href="#invitation">Шақыру</a></li>
+            <li><a href="#details">Мәліметтер</a></li>
+            <li><a href="#location">Орын</a></li>
+            <li><a href="#rsvp">Жауап беру</a></li>
+        </ul>
+        <button class="mobile-menu-toggle">☰</button>
+    </div>
+</nav>
+
+<!-- Басты бет -->
+<section id="home" class="hero">
+    <div class="container">
+        <div class="ornament"></div>
+        <h1>Омардың сүндет тойы</h1>
+        <p class="subtitle">СҮНДЕТ ТОЙ</p>
+        <p class="family-name">Пулатовтар әулеті</p>
+    </div>
+</section>
+
+<!-- Разделитель с орнаментом -->
+<div class="section-divider"></div>
+
+<!-- Қош келдіңіздер -->
+<section class="welcome">
+    <div class="container">
+        <div class="welcome-card">
+            <h2>Қош келдіңіздер!</h2>
+            <p class="welcome-text">
+                Біздің отбасылық дәстүрімізге сәйкес, балапанымыз Омардың сүндет тойына арналған ерекше күнге қош келдіңіздер!
+            </p>
+            <div class="welcome-ornament"></div>
+            <p class="welcome-text">
+                Бұл киелі сәт біздің балапанымыздың өмірінде маңызды кезең болып табылады. Сіздермен бірге осы қуанышты бөлісуге шақырамыз.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Разделитель с орнаментом -->
+<div class="section-divider"></div>
+
+<!-- Шақыру -->
+<section id="invitation" class="invitation">
+    <div class="container">
+        <div class="invitation-card">
+            <h2>Шақыру хаты</h2>
+            <p class="invitation-text">
+                Құрметті достар мен туыстар! Біз сіздерді балапанымыз Омардың сүндет тойына шақырамыз.
+            </p>
+            <div class="invitation-ornament"></div>
+            <p class="invitation-text">
+                Осы ерекше күнде сіздердің қатысуыңыз біз үшін зор қуаныш әкеледі. Отбасылық дәстүрімізді сақтап, балапанымызды жақсылыққа батап береміз.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Разделитель с орнаментом -->
+<div class="section-divider"></div>
+
+<!-- Отбасы туралы -->
+<section class="groom">
+    <div class="container">
+        <div class="groom-card">
+            <h2>Пулатовтар әулеті</h2>
+            <p>Той иесі: Ернар - Әсел</p>
+            <p>Біздің отбасы дәстүрлерді қастерлейді және ұрпақтан ұрпаққа дәстүрімізді жалғастырып келеміз. Омардың сүндет тойы - бұл біздің отбасымыздағы ерекше сәт.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Разделитель с орнаментом -->
+<div class="section-divider"></div>
+
+<!-- Уақыт санағышы -->
+<section class="countdown">
+    <div class="container">
+        <h2>Тойға дейін қалған уақыт</h2>
+        <div class="timer" id="countdown-timer">
+            <div class="time-unit">
+                <span class="time-number" id="days">15</span>
+                <span class="time-label">Күн</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="hours">3</span>
+                <span class="time-label">Сағат</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="minutes">40</span>
+                <span class="time-label">Минут</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="seconds">21</span>
+                <span class="time-label">Секунд</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Разделитель с орнаментом -->
+<div class="section-divider"></div>
+
+<!-- Мәліметтер -->
+<section id="details" class="details">
+    <div class="container">
+        <h2>Той мәліметтері</h2>
+        <div class="details-grid">
+            <div class="detail-card">
+                <div class="detail-icon">📅</div>
+                <h3>Күні</h3>
+                <p>2024 жылдың 8 тамыз<br>Жума күні</p>
+            </div>
+            <div class="detail-card">
+                <div class="detail-icon">⏰</div>
+                <h3>Уақыты</h3>
+                <p>18:00 - 22:00<br>Кешкі мерекелік ас</p>
+            </div>
+            <div class="detail-card">
+                <div class="detail-icon">🏛️</div>
+                <h3>Орын</h3>
+                <p>Тойхана "Астана" мейрамханасы<br>Леңгір қаласы</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Разделитель с орнаментом -->
+<div class="section-divider"></div>
+
+<!-- Карта -->
+<section id="location" class="map-section">
+    <div class="container">
+        <h2>Орналасу</h2>
+        <div class="map-container">
+            <iframe class="map-frame" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2506.123456789!2d71.123456!3d51.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDA3JzI0LjQiTiA3McKwMDcnMjQuNCJF!5e0!3m2!1sru!2skz!4v1234567890123"
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="map-info">
+                <strong>Тойхана "Астана" мейрамханасы</strong><br>
+                Леңгір қаласы<br>
+                Телефон: +7 (771) 694 1130
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Разделитель с орнаментом -->
+<div class="section-divider"></div>
+
+<!-- RSVP -->
+<section id="rsvp" class="rsvp">
+    <div class="container">
+        <h2>Жауап беру</h2>
+        <div class="rsvp-card">
+            <p class="rsvp-text">
+                Тойға қатысатындығыңызды растау үшін, төмендегі форманы толтырыңыз. Сіздердің қатысуыңыз біз үшін өте маңызды!
+            </p>
+            <form class="rsvp-form" id="rsvp-form">
+                <div class="form-group">
+                    <label for="guest-name">Толық атыңыз</label>
+                    <input type="text" id="guest-name" class="form-control" placeholder="Атыңызды енгізіңіз" required>
+                </div>
+                <div class="form-group">
+                    <label for="guest-phone">Телефон нөмірі</label>
+                    <input type="tel" id="guest-phone" class="form-control" placeholder="+7 (___) ___-__-__" required>
+                </div>
+                <div class="form-group">
+                    <label>Қатысу</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="attending-yes" name="attending" value="yes" required>
+                            <label for="attending-yes">Қатысамын</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="attending-no" name="attending" value="no" required>
+                            <label for="attending-no">Қатыса алмаймын</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="guest-count">Қатысушылар саны</label>
+                    <select id="guest-count" class="form-control" required>
+                        <option value="">Таңдаңыз</option>
+                        <option value="1">1 адам</option>
+                        <option value="2">2 адам</option>
+                        <option value="3">3 адам</option>
+                        <option value="4">4 адам</option>
+                        <option value="5">5+ адам</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Тілек (міндетті емес)</label>
+                    <textarea id="message" class="form-control" rows="4" placeholder="Тілегіңізді жазыңыз..."></textarea>
+                </div>
+                <button type="button" onclick="sendToWhatsApp()" class="submit-btn">WhatsApp-пен жіберу</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+function sendToWhatsApp() {
+    // Получаем данные из формы
+    const name = document.getElementById('guest-name').value;
+    const phone = document.getElementById('guest-phone').value;
+    const attending = document.querySelector('input[name="attending"]:checked')?.value;
+    const guests = document.getElementById('guest-count').value;
+    const message = document.getElementById('message').value;
+
+    // Проверяем заполнение обязательных полей
+    if (!name || !phone || !attending || !guests) {
+        alert('Міндетті өрістерді толтырыңыз!');
+        return;
+    }
+
+    // Формируем текст сообщения
+    const attendingText = attending === 'yes' ? 'Қатысамын' : 'Қатыса алмаймын';
+    const text = `*Сүндет тойына жауап* 🎉\n\n` +
+                 `👤 *Аты-жөні*: ${name}\n` +
+                 `📞 *Телефон*: ${phone}\n` +
+                 `✅ *Қатысу*: ${attendingText}\n` +
+                 `👥 *Қонақтар саны*: ${guests}\n` +
+                 `💬 *Тілек*: ${message || 'жоқ'}`;
+
+    // Кодируем текст для URL
+    const encodedText = encodeURIComponent(text);
+    
+    // Ваш номер телефона в международном формате (с 8 замененной на 7)
+    const whatsappNumber = '77716941130'; // Номер 87086683105 в международном формате
+    
+    // Открываем WhatsApp с предзаполненным сообщением
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodedText}`, '_blank');
+    
+    // Очищаем форму после отправки
+    document.getElementById('rsvp-form').reset();
+}
+</script>
+
+<!-- Футер -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <h3>Пулатовтар әулеті</h3>
+            <p>Біз сіздердің қатысуыңызды асыға күтеміз!</p>
+            <p>Сұрақтарыңыз болса, бізбен хабарласыңыз:</p>
+            <p>Телефон: +7 (771) 694 1130</p>
+            <div class="footer-ornament"></div>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Омардың сүндет тойы. Барлық құқықтар қорғалған.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Уақыт санағышы
+    function startCountdown() {
+        const weddingDate = new Date('2024-12-15T18:00:00').getTime();
+        
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById('countdown-timer').innerHTML = '<h3 style="color: #8b5a2b;">Той басталды!</h3>';
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }, 1000);
+    }
+
+    // RSVP форма
+    document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const name = formData.get('guest-name') || document.getElementById('guest-name').value;
+        const phone = formData.get('guest-phone') || document.getElementById('guest-phone').value;
+        const attending = formData.get('attending');
+        const guestCount = document.getElementById('guest-count').value;
+        const message = document.getElementById('message').value;
+        
+        if (!name || !phone || !attending || !guestCount) {
+            alert('Міндетті өрістерді толтырыңыз!');
+            return;
+        }
+        
+        // Мұнда сіз деректерді серверге жібере аласыз
+        alert('Рахмет! Сіздің жауабыңыз қабылданды.');
+        this.reset();
+    });
+
+    // Тегіс скролл
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Навигация скроллы
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('.nav');
+        if (window.scrollY > 100) {
+            nav.style.background = 'rgba(249, 245, 233, 0.98)';
+            nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+        } else {
+            nav.style.background = 'rgba(249, 245, 233, 0.95)';
+            nav.style.boxShadow = '0 2px 15px rgba(0,0,0,0.05)';
+        }
+    });
+
+    // Бетті жүктеген кезде санағышты бастау
+    document.addEventListener('DOMContentLoaded', startCountdown);
+</script>
+</body> </html> ```
